@@ -1,0 +1,16 @@
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\bin\Debug\PowerShell Console VS Project.exe.config
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\bin\Debug\PowerShell Console VS Project.exe
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\bin\Debug\PowerShell Console VS Project.pdb
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project.csprojResolveAssemblyReference.cache
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\Additional XAML\ConnectToServer.g.cs
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\MainWindow.g.cs
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\App.g.cs
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project_MarkupCompile.cache
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project_MarkupCompile.lref
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\Additional XAML\ConnectToServer.baml
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\MainWindow.baml
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project.g.resources
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell_Console_VS_Project.Properties.Resources.resources
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project.csproj.GenerateResource.Cache
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project.exe
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project.pdb
