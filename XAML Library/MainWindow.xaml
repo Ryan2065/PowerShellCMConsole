@@ -1,7 +1,7 @@
-<Window
+<Window 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Posh ConfigMgr Console" Height="350" Width="525" WindowStartupLocation="CenterScreen">
+        Title="Posh ConfigMgr Console" Height="450" Width="725" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="23"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Menu Grid.ColumnSpan="4">
             <MenuItem Header="File" VerticalContentAlignment="Center">
@@ -19,39 +20,22 @@
             </MenuItem>
         </Menu>
         <TreeView Name="Tree_MainMenu" Grid.Row="1" Grid.Column="0">
-            <TreeViewItem Header="Administration">
-                <TreeViewItem Header="Boundaries" Tag="0"/>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeViewItem Header="Administration" Tag="0">
+                <TreeViewItem Header="Boundaries" Tag="1"/>
             </TreeViewItem>
         </TreeView>
         <GridSplitter Grid.Row="1" Grid.Column="1" ResizeDirection="Columns" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        <TabControl Grid.Row="1" Grid.Column="2">
-            <TabItem Header="test" Visibility="Collapsed">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="4"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="4"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <GridSplitter Grid.Row="2" Grid.Column="0" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="3"/>
-                    <GridSplitter Grid.Row="3" Grid.Column="1" ResizeDirection="Columns" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    <Label Content="Filter:" HorizontalAlignment="Right"/>
-                    <TextBox Name="Txt_BoundaryFilter" Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center" Text="{Binding BoundaryFilterText}">
-                    </TextBox>
-                    <DataGrid Grid.Row="1" Grid.ColumnSpan="3">
-                        <DataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Name="BoundaryDelete" Header="Delete"/>
-                            </ContextMenu>
-                        </DataGrid.ContextMenu>
-                    </DataGrid>
-                </Grid>
-            </TabItem>
-        </TabControl>
+        <Grid Name="RightGrid" Grid.Row="1" Grid.Column="2" IsEnabled="{Binding GridEnabled}">
+        </Grid>
+        <ProgressBar Name="ProgressBar" Grid.Row="1" Grid.Column="2" Height="25" Margin="10,0,10,0" IsIndeterminate="True" Visibility="{Binding ProgressVisibility}"/>
+        <TextBlock Name="ProgressText" Grid.Row="1" Grid.Column="2" Height="20" HorizontalAlignment="Center" Text="Please Wait..." VerticalAlignment="Center" Visibility="{Binding ProgressVisibility}"/>
+        <Expander Header="Log" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+            <TextBox Name="LogText" Height="100" Text="{Binding LogText}" IsReadOnly="True"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+        </Expander>
     </Grid>
 </Window>

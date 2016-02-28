@@ -59,12 +59,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Additional XAML\Snippet - Boundaries.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Additional XAML\ConnectToServer.xaml.cs">
       <DependentUpon>ConnectToServer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Additional XAML\Snippet - Boundaries.xaml.cs">
+      <DependentUpon>Snippet - Boundaries.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

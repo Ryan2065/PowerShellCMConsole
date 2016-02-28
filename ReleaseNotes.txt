@@ -1,0 +1,14 @@
+Version 0.1 - Released 2/27/2016
+
+This is the first version of the PowerShell CM Console! Features:
+
+Features Added:
+    UI Controls
+    Connect to CM Server - Requires PS Remoting! This will allow you to connect to a CM Server that isn't even on your own domain
+    Boundaries - Shows you the boundaries, just like in the console! (Yeah, not that cool yet)
+    Boundary Analyzer - Shows you devices that aren't in a boundary
+
+To Do:
+    Boundary Analyzer: Allow you to scope by collection / boundary / boundary group
+    Discovery Methods: Enable this feature
+    Save State: Cache the current state of your environment to look back on later - Will be great for detecting what changed in specific areas!

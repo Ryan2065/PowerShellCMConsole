@@ -14,3 +14,4 @@ C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console 
 C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project.csproj.GenerateResource.Cache
 C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project.exe
 C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\PowerShell Console VS Project.pdb
+C:\Users\rephgrave.CONCURRENCY\Documents\PowerShellCMConsole\PowerShell Console VS Project\PowerShell Console VS Project\obj\Debug\Additional XAML\Snippet - Boundaries.baml
