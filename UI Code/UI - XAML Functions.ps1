@@ -3,6 +3,7 @@ Function Create-EphingClass {
         $ClassName,
         $ClassHash
     )
+
     $Class = @"
 using System.ComponentModel;
 using System.Windows;

@@ -8,6 +8,6 @@
     </Grid.RowDefinitions>
     <Label Content="Welcome to the PowerShell CM Console by Ryan Ephgrave!" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"/>
     <Label Content="Release Notes:" Grid.Row="1"/>
-    <TextBox Grid.Row="2" Text="{Binding ReleaseNotes}" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="True"/>
+    <TextBox Grid.Row="2" Text="{Binding ReleaseNotes}" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="True" TextWrapping="Wrap"/>
 </Grid>
 

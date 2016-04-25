@@ -28,8 +28,8 @@
         </DataGrid.Columns>
         <DataGrid.ContextMenu>
             <ContextMenu>
-                <MenuItem Name="BoundaryAdd" Header="Add"/>
-                <MenuItem Name="BoundaryDelete" Header="Delete"/>
+                <MenuItem Name="BoundaryAdd" Header="Add" IsEnabled="False"/>
+                <MenuItem Name="BoundaryDelete" Header="Delete" IsEnabled="False"/>
             </ContextMenu>
         </DataGrid.ContextMenu>
     </DataGrid>
@@ -60,23 +60,23 @@
                         <Label Grid.Row="1" Grid.Column="0" Content="Description:" HorizontalAlignment="Right"/>
                         <TextBox Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" Margin="0,2,5,2" Text="{Binding Description}" AcceptsReturn="False"/>
                         <Label Grid.Row="2" Grid.Column="0" Content="Type:" HorizontalAlignment="Right"/>
-                        <ComboBox Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Margin="0,2,5,2">
+                        <ComboBox Name="ComboType" Text="{Binding ComboType}" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Margin="0,2,5,2">
                             <ComboBoxItem Content="IP subnet"/>
                             <ComboBoxItem Content="Active Directory site"/>
                             <ComboBoxItem Content="IPv6 prefix"/>
                             <ComboBoxItem Content="IP address range"/>
                         </ComboBox>
-                        <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Content="{Binding TypeLabel1}"/>
-                        <StackPanel Name="StackADSite" Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Visibility="Hidden">
+                        <Label Visibility="{Binding TypeLabel1Visibility}" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Content="{Binding TypeLabel1}"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Visibility="{Binding ADSiteBrowseVisibility}">
                             <TextBox Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" Margin="0,2,5,2" Text="{Binding ADSite}" Width="170" AcceptsReturn="False"/>
                             <Button Name="ADSiteBrowse" Width="75" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="2,2,5,2" Content="Browse"/>
                         </StackPanel>
-                        <TextBox Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" Margin="0,2,5,2" Text="{Binding TypeText1}" AcceptsReturn="False"/>
-                        <Label Grid.Row="4" Grid.Column="0" Content="Ending IP address:" HorizontalAlignment="Right" Visibility="Hidden"/>
-                        <TextBox Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" Margin="0,2,5,2" Text="{Binding EndIPAddress}" AcceptsReturn="False" Visibility="Hidden"/>
+                        <TextBox Visibility="{Binding TypeText1Visibility}" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" Margin="0,2,5,2" Text="{Binding TypeText1}" AcceptsReturn="False"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="Ending IP address:" HorizontalAlignment="Right" Visibility="{Binding LabelEndIPVisibility}"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" Margin="0,2,5,2" Text="{Binding EndIPAddress}" AcceptsReturn="False" Visibility="{Binding TextEndIPVisibility}"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Site Systems">
+                <TabItem Header="Site Systems" IsEnabled="False">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25"/>
@@ -93,7 +93,7 @@
                         <DataGrid Name="SiteSystemsGrid" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding SiteSystemItemSource}"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Boundary Groups">
+                <TabItem Header="Boundary Groups" IsEnabled="False">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25"/>
@@ -116,7 +116,7 @@
                     </Grid>
                 </TabItem>
             </TabControl>
-            <Button Name="BoundariesSave" Content="Save" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="5,2,2,3" HorizontalAlignment="Center" Width="75"/>
+            <Button Name="BoundariesSave" IsEnabled="False" Content="Save" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="5,2,2,3" HorizontalAlignment="Center" Width="75"/>
         </Grid>
     </ScrollViewer>
 

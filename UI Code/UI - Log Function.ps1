@@ -1,8 +1,10 @@
 Function Log {
     Param (
         $Message,
-        $ErrorMessage
+        $ErrorMessage,
+        $ExceptionObject
     )
+    if ($ExceptionObject -ne $null) { $ErrorMessage = $ExceptionObject.Exception.Message }
     $CurrentTime = (Get-Date).ToLongTimeString()
-    $SynchrnoizedHashTable.WindowDataContext.LogText = $SynchrnoizedHashTable.WindowDataContext.LogText + "$CurrentTime - $Message $ErrorMessage`n"
+    $SynchronizedHashTable.WindowDataContext.LogText = $SynchronizedHashTable.WindowDataContext.LogText + "$CurrentTime - $Message $ErrorMessage`n"
 }

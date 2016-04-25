@@ -16,50 +16,17 @@
         
 #>
 
-$Global:SynchrnoizedHashTable = [HashTable]::Synchronized(@{})
-$SynchrnoizedHashTable.Host = $Host
-$SynchrnoizedHashTable.OptionsHash = @{}
+$Global:SynchronizedHashTable = [HashTable]::Synchronized(@{})
+$SynchronizedHashTable.Host = $Host
+$SynchronizedHashTable.OptionsHash = @{}
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process
 
-Function Process-Options {
-    If(Test-Path "$PSScriptRoot\PoshConsoleSettings.txt") {
-        Get-Content "$PSScriptRoot\PoshConsoleSettings.txt" | Foreach-Object {
-            $SplitLine = $_.Split("=")
-            $SynchrnoizedHashTable.OptionsHash[$SplitLine[0]] = $SplitLine[1]
-        }
-    }
-    else {
-        Import-Module "$PSScriptRoot\UI Code\UI - ConnectToServer.ps1"
-    }
-}
+. "$PSScriptRoot\General Functions\General.ps1"
+. "$PSScriptRoot\UI Code\UI - XAML Functions.ps1"
+. "$PSScriptRoot\Worker Functions\Worker - Runspaces.ps1"
+. "$PSScriptRoot\UI Code\UI - Log Function.ps1"
 
 Process-Options
-
-if($SynchrnoizedHashTable.OptionsHash["AltCreds"] -eq 'True') {
-    if (![String]::IsNullOrEmpty($SynchrnoizedHashTable.OptionsHash["AltCredsUser"])) { $SynchrnoizedHashTable.OptionsHash["CMCreds"] = Get-Credential -Message 'Please enter the credentials to connect to the ConfigMgr site server' -UserName $SynchrnoizedHashTable.OptionsHash["AltCredsUser"] }
-    else { $SynchrnoizedHashTable.OptionsHash["CMCreds"] = Get-Credential -Message 'Please enter the credentials to connect to the ConfigMgr site server' }
-    $tempOptionsText = Get-Content "$PSScriptRoot\PoshConsoleSettings.txt"
-    Remove-Item "$PSScriptRoot\PoshConsoleSettings.txt" -Force
-    $added = $false
-    foreach ($line in $tempOptionsText) {
-        if($line.ToLower().Contains('altcredsuser')) {
-            $NewLine = "AltCredsUser=" + $SynchrnoizedHashTable.OptionsHash["CMCreds"].UserName
-            $NewLine >> "$PSScriptRoot\PoshConsoleSettings.txt"
-            $added = $true
-        }
-        else {
-            $line >> "$PSScriptRoot\PoshConsoleSettings.txt"
-        }
-        if ($added -eq $false) {
-            $NewLine = "AltCredsUser=" + $SynchrnoizedHashTable.OptionsHash["CMCreds"].UserName
-            $NewLine >> "$PSScriptRoot\PoshConsoleSettings.txt"
-        }
-    }
-}
-
-Import-Module "$PSScriptRoot\UI Code\UI - XAML Functions.ps1"
-Import-Module "$PSScriptRoot\Worker Functions\Worker - Runspaces.ps1"
-Import-Module "$PSScriptRoot\UI Code\UI - Log Function.ps1"
 
 Create-EphingRunspacePool -Threads 20
 Add-Type -AssemblyName PresentationFramework,PresentationCore,WindowsBase
@@ -82,10 +49,10 @@ $Returned = Create-EphingClass -ClassName 'WindowClass' -ClassHash $ClassHashTab
 $Window = [Windows.Markup.XamlReader]::Load((New-Object System.Xml.XmlNodeReader $xaml))
 $xaml.SelectNodes("//*[@Name]") | Foreach-Object { Set-Variable -Name (("Window" + "_" + $_.Name)) -Value $Window.FindName($_.Name) }
 
-$SynchrnoizedHashTable.WindowDataContext = New-Object -TypeName WindowClass
-$Window.DataContext = $SynchrnoizedHashTable.WindowDataContext
-$SynchrnoizedHashTable.WindowDataContext.ProgressVisibility = [System.Windows.Visibility]::Hidden
-$SynchrnoizedHashTable.WindowDataContext.GridEnabled = $true
+$SynchronizedHashTable.WindowDataContext = New-Object -TypeName WindowClass
+$Window.DataContext = $SynchronizedHashTable.WindowDataContext
+$SynchronizedHashTable.WindowDataContext.ProgressVisibility = [System.Windows.Visibility]::Hidden
+$SynchronizedHashTable.WindowDataContext.GridEnabled = $true
 $Window_MI_Connect.Add_Click({
     Import-Module "$PSScriptRoot\UI Code\UI - ConnectToServer.ps1"
 })
@@ -96,7 +63,7 @@ $Window_MI_Exit.Add_Click({
   
 
 $Window_Tree_MainMenu.Add_SelectedItemChanged({
-    #$SynchrnoizedHashTable.WindowDataContext.TabControlSelectedIndex = $Window_Tree_MainMenu.SelectedItem.Tag
+    #$SynchronizedHashTable.WindowDataContext.TabControlSelectedIndex = $Window_Tree_MainMenu.SelectedItem.Tag
     $Header= $Window_Tree_MainMenu.SelectedItem.Header
     if (Test-Path "$PSScriptRoot\UI Code\UI - $Header.ps1") {
         . "$PSScriptRoot\UI Code\UI - $Header.ps1"
@@ -109,9 +76,43 @@ $Window_LogText.Add_TextChanged({
     }
 })
 
+if (Test-Path "$PSScriptRoot\UI Code\UI - Welcome.ps1") {
+    . "$PSScriptRoot\UI Code\UI - Welcome.ps1"
+}
+
 <#$Window_Txt_BoundaryFilter.Add_KeyDown({
     $args[1].Key.ToString()
 })#>
- 
+
+
+
+if($SynchronizedHashTable.OptionsHash["AltCreds"] -eq 'True') {
+    If(($Global:SynchronizedHashTable.OptionsHash["SaveCreds"] -eq 'True')) {
+        . "$PSScriptRoot\General Functions\General - Credentials.ps1"
+        $SynchronizedHashTable.OptionsHash["CMCreds"] = Get-WinVaultCredentials -UserName $SynchronizedHashTable.OptionsHash["AltCredsUser"]
+    }
+    else {
+        if (![String]::IsNullOrEmpty($SynchronizedHashTable.OptionsHash["AltCredsUser"])) { $SynchronizedHashTable.OptionsHash["CMCreds"] = Get-Credential -Message 'Please enter the credentials to connect to the ConfigMgr site server' -UserName $SynchronizedHashTable.OptionsHash["AltCredsUser"] }
+        else { $SynchronizedHashTable.OptionsHash["CMCreds"] = Get-Credential -Message 'Please enter the credentials to connect to the ConfigMgr site server' }
+        $tempOptionsText = Get-Content "$PSScriptRoot\PoshConsoleSettings.txt"
+        Remove-Item "$PSScriptRoot\PoshConsoleSettings.txt" -Force
+        $added = $false
+        foreach ($line in $tempOptionsText) {
+            if($line.ToLower().Contains('altcredsuser')) {
+                $NewLine = "AltCredsUser=" + $SynchronizedHashTable.OptionsHash["CMCreds"].UserName
+                $NewLine >> "$PSScriptRoot\PoshConsoleSettings.txt"
+                $added = $true
+            }
+            else {
+                $line >> "$PSScriptRoot\PoshConsoleSettings.txt"
+            }
+            if ($added -eq $false) {
+                $NewLine = "AltCredsUser=" + $SynchronizedHashTable.OptionsHash["CMCreds"].UserName
+                $NewLine >> "$PSScriptRoot\PoshConsoleSettings.txt"
+            }
+        }
+    }
+}
+
 
 $Window.ShowDialog() | Out-Null

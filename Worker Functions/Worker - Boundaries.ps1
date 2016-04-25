@@ -20,17 +20,19 @@ Function Gather-Boundaries {
     $GatherBoundariesScriptBlock = {
         try{
             Log -Message "Loading boundaries..."
-            $SynchrnoizedHashTable.WindowDataContext.ProgressVisibility = [System.Windows.Visibility]::Visible
-            $SynchrnoizedHashTable.WindowDataContext.GridEnabled = $false
+            $SynchronizedHashTable.WindowDataContext.ProgressVisibility = [System.Windows.Visibility]::Visible
+            $SynchronizedHashTable.WindowDataContext.GridEnabled = $false
             $BoundaryList = New-Object System.Collections.ObjectModel.ObservableCollection[BoundaryDataGridClass]
-            $NameSpace = 'root\sms\site_' + $SynchrnoizedHashTable.OptionsHash["SiteCode"]
-            If($SynchrnoizedHashTable.OptionsHash["AltCreds"] -eq 'True') {
-                $CIMSession = New-CimSession -Credential $SynchrnoizedHashTable.OptionsHash['CMCreds'] -ComputerName $SynchrnoizedHashTable.OptionsHash['ServerName']
-                $Boundaries = Get-CimInstance -Namespace $NameSpace -ClassName 'SMS_Boundary' -CimSession $CIMSession #-ComputerName $SynchrnoizedHashTable.OptionsHash['ServerName']  # -Credential $SynchrnoizedHashTable.OptionsHash['CMCreds']
+            $NameSpace = 'root\sms\site_' + $SynchronizedHashTable.OptionsHash["SiteCode"]
+            if ($SynchronizedHashTable.CIMSession -eq $null) {
+                If($SynchronizedHashTable.OptionsHash["AltCreds"] -eq 'True') {
+                    $SynchronizedHashTable.CIMSession = New-CimSession -Credential $SynchronizedHashTable.OptionsHash['CMCreds'] -ComputerName $SynchronizedHashTable.OptionsHash['ServerName']
+                }
+                else {
+                    $SynchronizedHashTable.CIMSession = New-CimSession -ComputerName -ComputerName $SynchronizedHashTable.OptionsHash['ServerName']
+                }               
             }
-            else {
-                $Boundaries = Get-CimInstance -Namespace $NameSpace -Class 'SMS_Boundary' -ComputerName $SynchrnoizedHashTable.OptionsHash['ServerName']
-            }
+            $Boundaries = Get-CimInstance -Namespace $NameSpace -ClassName 'SMS_Boundary' -CimSession $SynchronizedHashTable.CIMSession
             foreach ($Boundary in $Boundaries) {
                 $BoundaryItem = New-Object -TypeName BoundaryDataGridClass
                 $BoundaryItem.Boundary = $Boundary.Value
@@ -61,13 +63,13 @@ Function Gather-Boundaries {
         catch {
             Log -Message "Error loading boundaries" -ErrorMessage $_.Exception.Message
         }
-        $SynchrnoizedHashTable.BoundaryGridDataContext.BoundaryList = $BoundaryList
+        $SynchronizedHashTable.BoundaryGridDataContext.BoundaryList = $BoundaryList
         Log -Message 'Finished getting boundaries!'
-        $SynchrnoizedHashTable.WindowDataContext.ProgressVisibility = [System.Windows.Visibility]::Hidden
-        $SynchrnoizedHashTable.WindowDataContext.GridEnabled = $true
+        $SynchronizedHashTable.WindowDataContext.ProgressVisibility = [System.Windows.Visibility]::Hidden
+        $SynchronizedHashTable.WindowDataContext.GridEnabled = $true
     }
     try {
-        $null = $SynchrnoizedHashTable.BoundaryGridDataContext.BoundaryList.Clear()
+        $null = $SynchronizedHashTable.BoundaryGridDataContext.BoundaryList.Clear()
     }
     catch{ }
     Start-EphingThreading -ScriptBlock $GatherBoundariesScriptBlock -RunspaceID 'GatherBoundaries'
